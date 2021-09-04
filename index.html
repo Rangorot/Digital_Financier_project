@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<div class="header"><img class="img-header" src="img/header.png"> </div>
+	<section class="hero">
+		<div class="hero-container">
+			
+			<div class="provider">
+				<nav class="nav">
+					<a href="#" class="nav-link">Недавние</a>
+					<a href="#" class="nav-link">Старые</a>
+					<a href="#" class="nav-link">Альтернативные</a>
+					<a href="#" class="nav-link">Новые</a>
+				</nav>
+				<div class="sections">
+					<h1>Поставщики</h1>
+					<div class="section-form"><a href="#" class="form">Открыть форму для поиска по поставщикам</a></div>
+					<div class="table">
+						<table>
+							<thead>
+								<tr>
+									<th>Наименование</th>
+									<th>Количество выполненных заказов</th>
+									<th>Количество площадок с объявлениями</th>
+									<th>Средняя стоимость заказа, руб</th>
+								</tr>
+							</thead>
+							<tbody>
+							<?php
+								$connect = mysqli_connect("localhost","root", "#OxMk18j921");
+								if (!$connect) {
+									die(mysql_error());
+								}
+								mysqli_select_db("rosatom");
+								$results = mysqli_query("SELECT company_name, number_completed_orders, num_of_sites_with_ads, avg_price FROM completed_tasks LIMIT 10");
+								while($row = mysqli_fetch_array($results)) {
+							?>
+								<tr>
+									<td><?php echo $row['Наименование']?></td>
+									<td><?php echo $row['Количество выполненных заказов']?></td>
+									<td><?php echo $row['Количество площадок с объявлениями']?></td>
+									<td><?php echo $row['Средняя стоимость заказа, руб']?></td>
+								</tr>
+
+							<?php
+							}
+							?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>	
+	</section>
+
+</body>
+</html>
